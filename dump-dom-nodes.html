@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title> </title>
+    <style type="text/css">
+        body {
+            font-family: sans-serif;
+        }
+
+        #root {
+            display: none;
+        }
+
+        .output {
+            font-family: monospace;
+            background-color: #dddddd;
+        }
+    </style>
+</head>
+<body>
+     <h2>Question</h2>
+
+    <p>Write JavaSrcript function "dumpElementTree(element)" to dump all nodes excepts text nodes under the element id="root".</p>
+    <ul>
+        <li>This function takes 1 argument which is DOM element object.</li>
+        <li>You can use jQuery or other 3rd party library to access DOM element.</li>
+        <li>The result must be displayed in the element which id is "output" and displayed same as below.</li>
+    </ul>
+    <div>Expected result</div>
+    <div class="output">&lt;P#1>&lt;P#2>&lt;DIV#3>&lt;SPAN#4>&lt;SPAN#5>&lt;P#6>&lt;DIV#7>&lt;DIV#root></div>
+
+    <!-- Here is the element structure -->
+    <div id="root">
+        <div id="3">
+            <p id="1">First Text</p>
+            <p id="2">Second Text</p>
+        </div>
+        <div id="7">
+            <p id="6">
+                <span id="4">
+                    Third Text
+                </span>
+                <span id="5">
+                    Third Text
+                </span>
+            </p>
+        </div>
+    </div>
+    <!-- End of element structure -->
+
+    <div>Your Result</div>
+    <div id="output" class="output"></div>
+</body>
+<script type="text/javascript">
+    var root = document.getElementById('root'),
+        dump = [];
+
+    function dumpElementTree (element) {
+
+        function traverse (node, fn) {
+            fn(node);
+            node = node.lastChild;
+
+            while(node) {
+                traverse(node, fn);
+                node = node.previousSibling;
+            }
+        }
+
+        function dumpNode (node) {
+            if(node.nodeType !== 3) {
+                dump.unshift('&lt' + node.tagName + '#' + node.id + '&gt');
+            }
+        }
+
+        traverse(element, dumpNode);
+
+        return dump.join('');
+    }
+
+    document.getElementById('output').innerHTML = dumpElementTree(root);
+
+
+
+</script>
+</html>
