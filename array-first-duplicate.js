@@ -2,7 +2,6 @@ const all = ['ramon', 'bar', 'baz', 'foo', 'quz', 'bar'];
 
 const findRepeated = (arr) => {
     let repeated;
-    let i = 0;
 
     for(let i = 0; i < arr.length; i++) {
         for(let j = i + 1; j < arr.length; j++) {
