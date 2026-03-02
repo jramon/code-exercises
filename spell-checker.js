@@ -41,15 +41,17 @@ function parseWords(text) {
 function fuzzyCompare(word1, word2) {
  const w1 = word1.toLowerCase();
  const w2 = word2.toLowerCase();
- let matchingChars = 0;
  const totalChars = Math.max(w1.length, w2.length);
  const minChars = Math.min(w1.length, w2.length);
+ let matchingChars = 0;
+
  for(let i = 0; i< minChars; i++) {
    if(w1.charAt(i) === w2.charAt(i)) {
      matchingChars++;
    }
  }
- return matchingChars/ totalChars; 
+ 
+ return matchingChars / totalChars; 
 }
 
 /**
